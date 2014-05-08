@@ -1,9 +1,12 @@
+##library("sqldf", lib.loc="C:/Program Files/R/R-3.0.3/library")
+##Loading required package: gsubfn
+##Loading required package: proto
+##Loading required package: RSQLite
+##Loading required package: DBI
+##Loading required package: RSQLite.extfuns
 data <- read.csv.sql("household_power_consumption.txt", sql = "SELECT * from file WHERE Date = '1/2/2007' OR Date = '2/2/2007'", sep = ";")
-names(data)
-?strptime
-data$DateTime <- NULL
 data$DateTime <- strptime(paste(data$Date, data$Time), format = "%d/%m/%Y %H:%M:%S")
-
+str(data)
 ## Plot 1
 hist(data$Global_active_power, col = "orangered", main = "Global Active Power", xlab = "Global Active Power (kilowatts)")
 
@@ -22,8 +25,6 @@ with(data, {
 })
 
 
-
-
 ## Plot 4
 par(mfrow = c(2, 2))
 plot(data$DateTime, data$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power")
@@ -36,8 +37,4 @@ with(data, {
         })
 plot(data$DateTime, data$Global_reactive_power, type = "l", xlab = "datetime", ylab = "Global_reactive_power")
 
-?as.Date
-str(data)
-?legend
-?hist
-?plot
+
